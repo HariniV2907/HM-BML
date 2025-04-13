@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Register</h2>
+    <form id="registrationForm">
+        <input placeholder="Name" id="name" required>
+        <input placeholder="Age" id="age" required>
+        <input placeholder="Email" id="email" required>
+        <button type="button" onclick="sendOTP()">Send OTP</button>
+        <input placeholder="Phone" id="phone" required>
+        <select id="designation">
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+        </select>
+        <input placeholder="OTP" id="otp" required>
+        <input placeholder="Password" id="password" type="password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p id="message"></p>
+    <img id="qrCode" style="display:none;" width="150">
+    <p><a href="/login">Login</a></p>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

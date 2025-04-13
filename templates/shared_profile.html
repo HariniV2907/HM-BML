@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shared Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>{{ user.name }}'s Profile</h2>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Phone:</b> {{ user.phone }}</p>
+    <p><b>Designation:</b> {{ user.designation }}</p>
+
+    {% if doctor and doctor.designation == 'doctor' %}
+    <hr>
+    <h3>Add Medical Record</h3>
+    <form method="POST">
+        <label>Complaint</label>
+        <input name="complaint" required>
+
+        <label>Diagnosis</label>
+        <input name="diagnosis" required>
+
+        <label>Treatment</label>
+        <input name="treatment" required>
+
+        <label>Prescription</label>
+        <textarea name="prescription" rows="2"></textarea>
+
+        <label>Next Visit</label>
+        <input name="next_visit" type="date" required>
+
+        <button type="submit">Add Record</button>
+    </form>
+    {% endif %}
+
+    <hr>
+    <h3>Medical History</h3>
+    {% for r in records %}
+        <p><b>Complaint:</b> {{ r.complaint }}</p>
+        <p><b>Diagnosis:</b> {{ r.diagnosis }}</p>
+        <p><b>Treatment:</b> {{ r.treatment }}</p>
+        <p><b>Prescription:</b> {{ r.prescription }}</p>
+        <p><b>Next Visit:</b> {{ r.next_visit }}</p>
+        <p><small>Added by: {{ r.added_by }} | {{ r.date }}</small></p>
+        <hr>
+    {% else %}
+        <p>No records yet.</p>
+    {% endfor %}
+</div>
+</body>
+</html>

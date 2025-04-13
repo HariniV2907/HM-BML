@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ user.name }}'s Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Welcome, {{ user.name }}</h2>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    <p>Designation: {{ user.designation }}</p>
+
+    <hr>
+    <h3>Pending Access Requests</h3>
+    {% if requests %}
+        {% for r in requests %}
+            <p>{{ r.name }} ({{ r.email }}) - 
+            <a href="/approve/{{ user.email }}/{{ r.email }}">[Approve]</a></p>
+        {% endfor %}
+    {% else %}
+        <p>No pending requests.</p>
+    {% endif %}
+
+    <hr>
+    <h3>Medical History</h3>
+    {% if records %}
+        {% for r in records %}
+            <p><b>Complaint:</b> {{ r.complaint }}</p>
+            <p><b>Diagnosis:</b> {{ r.diagnosis }}</p>
+            <p><b>Treatment:</b> {{ r.treatment }}</p>
+            <p><b>Next Visit:</b> {{ r.next_visit }}</p>
+            <p><small>Added by: {{ r.added_by }} | {{ r.date }}</small></p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No medical records found.</p>
+    {% endif %}
+</div>
+</body>
+</html>

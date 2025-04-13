@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Scan Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Request Access to {{ email }}'s Profile</h2>
+    <form method="POST">
+        <input name="name" placeholder="Your Name" required>
+        <input name="email" placeholder="Your Email" required>
+        <button type="submit">Request Access</button>
+    </form>
+
+    {% if scanner_email %}
+    <p style="margin-top: 20px; color: green;">Waiting for profile owner approval...</p>
+    <script>
+    setInterval(async () => {
+        const res = await fetch(`/check-access/{{ email }}/{{ scanner_email }}`);
+        const data = await res.json();
+        if (data.approved) {
+            window.location.href = `/shared-profile/{{ email }}/{{ scanner_email }}`;
+        }
+    }, 3000);
+    </script>
+    {% endif %}
+</div>
+</body>
+</html>
